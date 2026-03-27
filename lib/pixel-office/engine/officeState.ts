@@ -42,7 +42,7 @@ const LOBSTER_BUBBLE_LIFETIME_SEC = 0.8
 const LOBSTER_BUBBLE_SPAWN_RATE = 12
 const LOBSTER_HIT_RADIUS_PX = 6
 // ── Locale-aware text pools ─────────────────────────────────────────────────
-type OfficeLocale = 'zh-TW' | 'zh' | 'en'
+type OfficeLocale = 'zh-TW' | 'zh' | 'en' | 'th'
 
 const CODE_SNIPPETS_ZH_TW = [
   // JS/TS
@@ -138,6 +138,23 @@ const PHOTO_COMMENTS_ZH_TW = [
   '這光太絕了！！！', '這光太絕了！！！', '這光太絕了！！！',
   '這光太絕了！！！', '這光太絕了！！！',
   '不愧是台灣之光', '這是決定性瞬間！！！', '這個構圖絕了！',
+]
+
+const CODE_SNIPPETS_TH = [
+  'if (...)', 'else {', 'for (...)', 'return', 'async', 'await', 'try {', 'catch',
+  'def fn():', 'self.', 'lambda x:', '@decorator', 'prompt:', 'tokens++', 'model.chat()',
+  'agent.run()', 'stream()', 'tool_use', 'thinking...', 'Please fix...', 'Refactor this',
+]
+
+const SRE_BLACKWORDS_TH = [
+  'ตรวจดูก่อน', 'ดูกราฟ', 'เช็ค P99', 'ดูล็อกเกตเวย์', 'จำลองเหตุการณ์', 'เปิด rate limit',
+  'ตัดวงจรก่อน', 'ลดการทำงาน', 'ขยายระบบ', 'รีสตาร์ท', 'โรลแบ็ก', 'แจ้งผู้เกี่ยวข้อง',
+  'บันทึกไทม์ไลน์', 'เปิด war room', 'กำลังกู้คืน...', 'อย่าให้ล่ม', 'ควบคุม MTTR',
+]
+
+const PHOTO_COMMENTS_TH = [
+  'รูปสวยมาก!', 'โบเก้สวย', 'แสงดีมาก', 'องค์ประกอบยอดเยี่ยม', 'สีสวย',
+  'เหมาะเป็นวอลเปเปอร์', 'มีบรรยากาศ', 'ถ่ายออกมาดีมาก', 'ภาพระดับโปร',
 ]
 
 const CODE_SNIPPETS_ZH = [
@@ -335,26 +352,31 @@ const PHOTO_COMMENTS_EN = [
 function getCodeSnippets(locale: OfficeLocale): string[] {
   if (locale === 'zh-TW') return CODE_SNIPPETS_ZH_TW
   if (locale === 'en') return CODE_SNIPPETS_EN
+  if (locale === 'th') return CODE_SNIPPETS_TH
   return CODE_SNIPPETS_ZH
 }
 function getSreBlackwords(locale: OfficeLocale): string[] {
   if (locale === 'zh-TW') return SRE_BLACKWORDS_ZH_TW
   if (locale === 'en') return SRE_BLACKWORDS_EN
+  if (locale === 'th') return SRE_BLACKWORDS_TH
   return SRE_BLACKWORDS_ZH
 }
 function getPhotoComments(locale: OfficeLocale): string[] {
   if (locale === 'zh-TW') return PHOTO_COMMENTS_ZH_TW
   if (locale === 'en') return PHOTO_COMMENTS_EN
+  if (locale === 'th') return PHOTO_COMMENTS_TH
   return PHOTO_COMMENTS_ZH
 }
 function getTempWorkerLabel(locale: OfficeLocale): string {
   if (locale === 'zh-TW') return '臨時工'
   if (locale === 'en') return 'Temp'
+  if (locale === 'th') return 'พนักงานชั่วคราว'
   return '临时工'
 }
 function getGatewaySreLabel(locale: OfficeLocale): string {
   if (locale === 'zh-TW') return '值班工程師'
   if (locale === 'en') return 'On-Call SRE'
+  if (locale === 'th') return 'SRE ประจำ'
   return '值班SRE'
 }
 const SUBAGENT_PRIORITY_SEAT_IDS = [

@@ -2,9 +2,297 @@
 
 import { createContext, useContext, useState, useCallback, useEffect, ReactNode } from "react";
 
-export type Locale = "zh-TW" | "zh" | "en";
+export type Locale = "zh-TW" | "zh" | "en" | "th";
 
 const translations: Record<Locale, Record<string, string>> = {
+  th: {
+    // layout
+    "site.title": "แดชบอร์ด OpenClaw Bot",
+    "site.desc": "ดูการตั้งค่า OpenClaw ทุกตัว",
+
+    // nav sidebar
+    "nav.overview": "ภาพรวม",
+    "nav.agents": "บอท",
+    "nav.models": "รายการโมเดล",
+    "nav.monitor": "การตรวจสอบ",
+    "nav.sessions": "รายการเซสชัน",
+    "nav.stats": "สถิติ",
+    "nav.pixelOffice": "พิกเซลออฟฟิศ",
+    "nav.config": "การตั้งค่า",
+    "nav.skills": "จัดการสกิล",
+    "nav.alerts": "ศูนย์แจ้งเตือน",
+    "nav.experiments": "ฟีเจอร์ทดลอง",
+    "nav.expandSidebar": "ขยายแถบเมนู",
+    "nav.collapseSidebar": "ย่อแถบเมนู",
+    "nav.bugsOn": "Bugs On",
+    "nav.bugsOff": "Bugs Off",
+    "nav.bugsCount": "จำนวน",
+
+    // alerts page
+    "alerts.title": "ศูนย์แจ้งเตือน",
+    "alerts.subtitle": "ตั้งค่าแจ้งเตือนและการแจ้งเตือนระบบ",
+    "alerts.enableAlerts": "เปิดการแจ้งเตือน",
+    "alerts.enableDesc": "สลับการแจ้งเตือนทั้งหมด",
+    "alerts.receiveAgent": "บอทที่รับแจ้งเตือน",
+    "alerts.rules": "กฎแจ้งเตือน",
+    "alerts.rulesDesc": "กำหนดเงื่อนไขที่จะทริกเกอร์แจ้งเตือน",
+    "alerts.triggered": "แจ้งเตือนที่ถูกทริก ({count})",
+    "alerts.checking": "กำลังตรวจสอบแจ้งเตือน...",
+    "alerts.checkNow": "ตรวจสอบทันที",
+    "alerts.checkInterval": "ช่วงตรวจสอบ",
+
+    // common
+    "common.loading": "กำลังคิด...",
+    "common.loadError": "โหลดไม่สำเร็จ",
+    "common.backHome": "← กลับหน้าหลัก",
+    "common.backOverview": "← กลับไปที่ภาพรวม",
+    "common.noData": "ยังไม่มีข้อมูล",
+    "common.close": "ปิด",
+    "common.test": "🧪 ทดสอบ",
+    "common.testing": "⏳ กำลังทดสอบ...",
+    "common.justNow": "เมื่อสักครู่",
+    "common.minutesAgo": "นาทีที่แล้ว",
+    "common.hoursAgo": "ชั่วโมงที่แล้ว",
+    "common.daysAgo": "วันที่แล้ว",
+    "common.manualRefresh": "รีเฟรชด้วยมือ",
+    "common.seconds": "วินาที",
+    "common.minute": "นาที",
+    "common.minutes": "นาที",
+
+    // home page
+    "home.title": "🐾 แดชบอร์ด OpenClaw Bot",
+    "home.agentCount": "บอท",
+    "home.pageTitle": "OpenClaw บอท",
+    "home.defaultModel": "โมเดลเริ่มต้น",
+    "home.viewModels": "ดูรายการโมเดล →",
+    "home.skillMgmt": "🧩 จัดการสกิล",
+    "home.testAll": "ทดสอบโมเดลทั้งหมด",
+    "home.testingAll": "กำลังทดสอบโมเดล...",
+    "home.testOk": "ปกติ",
+    "home.testFail": "ผิดพลาด",
+    "home.updatedAt": "อัปเดตเมื่อ",
+    "home.refreshManual": "🔄 รีเฟรชด้วยมือ",
+    "home.globalTrend": "📊 แนวโน้มสถิติรวม",
+    "home.totalInputToken": "จำนวน Input Token",
+    "home.totalOutputToken": "จำนวน Output Token",
+    "home.totalMessages": "จำนวนข้อความทั้งหมด",
+    "home.tokenTrend": "🔢 แนวโน้มการใช้ Token",
+    "home.avgResponseTrend": "⏱️ แนวโน้มเวลาเฉลี่ยตอบ",
+    "home.groupTopology": "💬 โครงสร้างกลุ่มแชท",
+    "home.fallbackModels": "🔄 โมเดลสำรอง",
+    "home.feishuGroup": "กลุ่ม Feishu",
+    "home.discordChannel": "ช่อง Discord",
+    "home.bots": "บอท",
+    "home.noResponseData": "ไม่มีข้อมูลเวลาในการตอบ",
+    "home.testPlatforms": "ทดสอบการเชื่อมต่อแพลตฟอร์ม",
+    "home.testingPlatforms": "กำลังทดสอบแพลตฟอร์ม...",
+    "home.testSessions": "ทดสอบเซสชันบอท",
+    "home.testingSessions": "กำลังทดสอบเซสชัน...",
+    "home.testDmSessions": "ทดสอบ DM Session",
+    "home.testingDmSessions": "กำลังทดสอบ...",
+    "home.agentTaskTracking": "ติดตามงาน Agent",
+    "home.agentTaskSubtasks": "งานย่อย",
+    "home.agentTaskCron": "งานตามตาราง",
+    "home.agentTaskState.working": "กำลังทำงาน",
+    "home.agentTaskState.waiting": "รอ",
+    "home.agentTaskState.idle": "ว่าง",
+    "home.agentTaskNoSubtasks": "ไม่มีงานย่อยที่กำลังทำ",
+    "home.agentTaskNoCron": "ไม่มีการทำงานตามตาราง",
+    "home.agentTaskCronState.running": "กำลังทำงาน",
+    "home.agentTaskCronState.success": "สำเร็จ",
+    "home.agentTaskCronState.failed": "ล้มเหลว",
+    "home.agentTaskCronFailures": "การล้มเหลวต่อเนื่อง",
+    "home.agentTaskCronNoSummary": "ยังไม่มีสรุป",
+    "home.agentTaskCronDuration": "ระยะเวลา",
+    "home.agentTaskCronNextRun": "รันถัดไป",
+
+    // agent card
+    "agent.model": "โมเดล",
+    "agent.platform": "แพลตฟอร์ม",
+    "agent.feishuAppId": "Feishu App ID",
+    "agent.sessionCount": "จำนวนเซสชัน",
+    "agent.messageCount": "จำนวนข้อความ",
+    "agent.tokenUsage": "การใช้ Token",
+    "agent.totalTokenTip": "รวมการใช้ Token",
+    "agent.stats": "สถิติ",
+    "agent.lastActive": "ใช้งานครั้งล่าสุด",
+    "agent.todayAvgResponse": "เวลาเฉลี่ยตอบ",
+    "agent.todayAvgResponseTip": "เวลาเฉลี่ยตอบวันนี้",
+    "agent.switchModel": "เปลี่ยนโมเดล",
+    "agent.saveModel": "บันทึกและใช้",
+    "agent.cancelModel": "ยกเลิก",
+    "agent.modelSaving": "กำลังใช้งาน...",
+    "agent.modelApplyHint": "บันทึกจะรีสตาร์ท Gateway เพื่อใช้โมเดลใหม่",
+    "agent.modelApplyFailed": "การใช้งานโมเดลล้มเหลว",
+    "agent.currentUnknownModel": "โมเดลปัจจุบัน (ไม่อยู่ในรายการ)",
+
+    // agent status
+    "agent.status.working": "กำลังทำงาน",
+    "agent.status.online": "ออนไลน์",
+    "agent.status.idle": "ว่าง",
+    "agent.status.offline": "ออฟไลน์",
+    "agent.inUse": "ถูกใช้งานโดย:",
+    "agent.openChat": "คลิกเพื่อเปิดหน้าคุย",
+
+    // platform
+    "platform.feishu": "📱 Feishu",
+    "platform.yuanbao": "🤖 Yuanbao",
+    "platform.discord": "🎮 Discord",
+    "platform.telegram": "✈️ Telegram",
+    "platform.whatsapp": "💬 WhatsApp",
+    "platform.qqbot": "🐧 QQBot",
+    "platform.wecom": "💼 WeCom",
+
+    // time range
+    "range.daily": "รายวัน",
+    "range.weekly": "รายสัปดาห์",
+    "range.monthly": "รายเดือน",
+
+    // refresh options
+    "refresh.manual": "รีเฟรชด้วยมือ",
+    "refresh.10s": "10 วินาที",
+    "refresh.30s": "30 วินาที",
+    "refresh.1m": "1 นาที",
+    "refresh.5m": "5 นาที",
+    "refresh.10m": "10 นาที",
+
+    // models page
+    "models.title": "รายการโมเดล OpenClaw",
+    "models.providerCount": "จำนวน Provider",
+    "models.totalPrefix": "ทั้งหมด",
+    "models.testAll": "🧪 ทดสอบโมเดลทั้งหมด",
+    "models.testingAll": "⏳ กำลังทดสอบ...",
+    "models.colModelId": "Model ID",
+    "models.colName": "ชื่อ",
+    "models.colAccessMode": "วิธีเข้าถึง",
+    "models.accessModeApiKey": "api_key",
+    "models.accessModeAuth": "auth",
+    "models.colContext": "หน้าต่างบริบท",
+    "models.colMaxOutput": "ผลลัพธ์สูงสุด",
+    "models.colInputType": "ประเภทอินพุต",
+    "models.colReasoning": "การอนุมาน",
+    "models.colInputToken": "Input Token",
+    "models.colOutputToken": "Output Token",
+    "models.colAvgResponse": "เวลาเฉลี่ยตอบ",
+    "models.colTest": "ทดสอบ",
+    "models.noExplicitModels": "ไม่มีการกำหนดโมเดลโดยตรง (อนุมานจาก provider)",
+    "models.defaultModel": "โมเดลเริ่มต้น",
+    "models.fallbackModels": "โมเดลสำรอง",
+
+    // stats page
+    "stats.title": "สถิติข้อความ",
+    "stats.subtitle": "การใช้ Token และการวิเคราะห์เวลาในการตอบ",
+    "stats.totalInputToken": "Input Token ทั้งหมด",
+    "stats.totalOutputToken": "Output Token ทั้งหมด",
+    "stats.totalMessages": "จำนวนข้อความทั้งหมด",
+    "stats.dataPeriod": "ช่วงข้อมูล",
+    "stats.tokenConsumption": "🔢 การใช้ Token",
+    "stats.avgResponseTime": "⏱️ เวลาเฉลี่ยตอบ",
+    "stats.sessionList": "📋 รายการเซสชัน",
+    "stats.home": "← หน้าหลัก",
+    "stats.missingAgent": "ขาดพารามิเตอร์ agent",
+    "stats.noResponseData": "ไม่มีข้อมูลเวลาในการตอบ",
+    "stats.selectAgent": "เลือกบอทเพื่อดูสถิติข้อความ",
+    "stats.backToAgents": "← กลับไปยังรายการบอท",
+
+    // sessions page
+    "sessions.title": "รายการเซสชัน",
+    "sessions.sessionCount": "เซสชัน",
+    "sessions.totalToken": "Token ทั้งหมด",
+    "sessions.missingAgent": "ขาดพารามิเตอร์ agent",
+    "sessions.type.main": "หลัก",
+    "sessions.type.feishu-dm": "Feishu ส่วนตัว",
+    "sessions.type.feishu-group": "Feishu กลุ่ม",
+    "sessions.type.discord-dm": "Discord ส่วนตัว",
+    "sessions.type.discord-channel": "Discord ช่อง",
+    "sessions.type.telegram-dm": "Telegram ส่วนตัว",
+    "sessions.type.telegram-group": "Telegram กลุ่ม",
+    "sessions.type.whatsapp-dm": "WhatsApp ส่วนตัว",
+    "sessions.type.whatsapp-group": "WhatsApp กลุ่ม",
+    "sessions.type.cron": "งานตามตาราง",
+    "sessions.type.unknown": "ไม่ทราบ",
+    "sessions.test": "ทดสอบ",
+    "sessions.testing": "กำลังทดสอบ...",
+    "sessions.testOk": "✅ ปกติ",
+    "sessions.testFail": "❌ ผิดพลาด",
+    "sessions.testReply": "ตอบกลับ",
+    "sessions.testTime": "เวลา",
+    "sessions.context": "บริบท",
+    "sessions.selectAgent": "เลือกบอทเพื่อดูรายการเซสชัน",
+    "sessions.testAll": "🧪 ทดสอบทั้งหมด",
+    "sessions.testingAll": "⏳ กำลังทดสอบ...",
+    "sessions.testHint": "การทดสอบยืนยันเฉพาะการตอบของ Agent ข้อความจะไม่ปรากฎในแชท",
+    "sessions.testAllResult": "การทดสอบเสร็จสิ้น",
+    "sessions.testAllOk": "ผ่าน",
+    "sessions.testAllFail": "ล้มเหลว",
+    "sessions.backToAgents": "← กลับไปยังรายการบอท",
+
+    // skills page
+    "skills.title": "🧩 จัดการสกิล",
+    "skills.count": "สกิล",
+    "skills.builtin": "ในตัว",
+    "skills.extension": "ส่วนขยาย",
+    "skills.custom": "กำหนดเอง",
+    "skills.all": "ทั้งหมด",
+    "skills.search": "ค้นหาสกิล...",
+    "skills.showing": "แสดง",
+    "skills.unit": "รายการ",
+    "skills.noDesc": "ไม่มีคำอธิบาย",
+    "skills.source.builtin": "ในตัว",
+    "skills.source.custom": "กำหนดเอง",
+    "skills.viewSource": "ดู SKILL.md",
+    "skills.contentTitle": "เนื้อหา SKILL.md",
+    "skills.loadingContent": "กำลังโหลดเนื้อหาสกิล...",
+    "skills.contentLoadFailed": "โหลดเนื้อหาสกิลล้มเหลว",
+
+    // gateway status
+    "gateway.healthy": "Gateway ทำงานปกติ",
+    "gateway.unhealthy": "Gateway มีปัญหา",
+    "gateway.fetchError": "ไม่สามารถตรวจสอบสถานะ Gateway",
+
+    // pixel office
+    "pixelOffice.title": "สำนักงาน OpenClaw Agents",
+    "pixelOffice.editMode": "โหมดแก้ไขเลย์เอาต์",
+    "pixelOffice.exitEdit": "ออกจากการแก้ไข",
+    "pixelOffice.save": "บันทึก",
+    "pixelOffice.reset": "รีเซ็ต",
+    "pixelOffice.undo": "เลิกทำ",
+    "pixelOffice.redo": "ทำซ้ำ",
+    "pixelOffice.sound": "เสียง",
+    "pixelOffice.resetView": "รีเซ็ตมุมมอง",
+    "pixelOffice.state.working": "กำลังทำงาน",
+    "pixelOffice.state.idle": "พัก",
+    "pixelOffice.state.offline": "ไม่ออนไลน์",
+    "pixelOffice.state.waiting": "รอ",
+    "pixelOffice.tempWorker": "พนักงานชั่วคราว",
+    "pixelOffice.tempWorker.source": "แหล่งที่มาของพนักงานชั่วคราว",
+    "pixelOffice.tempWorker.createdBy": "สร้างโดย subagent",
+    "pixelOffice.broadcast.online": "ออนไลน์แล้ว",
+    "pixelOffice.broadcast.offline": "ออฟไลน์แล้ว",
+    "pixelOffice.heatmap.title": "ฮีทแมปเวลาทำงานของ Agent",
+    "pixelOffice.heatmap.messages": "ข้อความ",
+    "pixelOffice.idleRank.title": "กระดานอันดับพักงาน",
+    "pixelOffice.idleRank.online": "ออนไลน์",
+    "pixelOffice.idleRank.active": "กำลังใช้งาน",
+    "pixelOffice.idleRank.idle": "พัก",
+    "pixelOffice.serverStatus.checking": "กำลังตรวจสอบสถานะเซิร์ฟเวอร์...",
+    "pixelOffice.serverStatus.healthy": "บริการปกติ",
+    "pixelOffice.serverStatus.degraded": "บริการอ่อนประสิทธิภาพ",
+    "pixelOffice.serverStatus.down": "บริการขัดข้อง",
+    "pixelOffice.serverStatus.unknown": "สถานะไม่ทราบ",
+    "pixelOffice.serverStatus.fetchFailed": "ตรวจสอบสถานะล้มเหลว",
+    "pixelOffice.gatewaySre.name": "SRE ประจำ",
+    "pixelOffice.gatewaySre.statusLabel": "สถานะ Gateway",
+    "pixelOffice.gatewaySre.responseMs": "เวลาเช็ก",
+    "pixelOffice.gatewaySre.status.unknown": "กำลังตรวจสอบ",
+    "pixelOffice.gatewaySre.status.healthy": "ปกติ",
+    "pixelOffice.gatewaySre.status.degraded": "ลดประสิทธิภาพ",
+    "pixelOffice.gatewaySre.status.down": "ขัดข้อง",
+    "pixelOffice.gatewaySre.tip.unknown": "รอข้อมูลสุขภาพ Gateway",
+    "pixelOffice.gatewaySre.tip.healthy": "Gateway ปกติ",
+    "pixelOffice.gatewaySre.tip.degraded": "Gateway ช้าหรือหน่วง",
+    "pixelOffice.gatewaySre.tip.down": "Gateway ขัดข้อง",
+  },
   "zh-TW": {
     // layout
     "site.title": "OpenClaw Bot Dashboard",
@@ -878,17 +1166,17 @@ interface I18nContextType {
 }
 
 const I18nContext = createContext<I18nContextType>({
-  locale: "zh",
+  locale: "th",
   setLocale: () => {},
   t: (key) => key,
 });
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("zh");
+  const [locale, setLocaleState] = useState<Locale>("th");
 
   useEffect(() => {
     const saved = localStorage.getItem("locale") as Locale;
-    if (saved && (saved === "zh-TW" || saved === "zh" || saved === "en")) {
+    if (saved && (saved === "zh-TW" || saved === "zh" || saved === "en" || saved === "th")) {
       setLocaleState(saved);
     }
   }, []);
@@ -926,6 +1214,7 @@ export function LanguageSwitcher() {
     >
       <option value="zh-TW">繁體中文</option>
       <option value="zh">简体中文</option>
+      <option value="th">ไทย</option>
       <option value="en">English</option>
     </select>
   );

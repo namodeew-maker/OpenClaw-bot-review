@@ -379,7 +379,7 @@ export default function PixelOfficePage() {
   // Update OfficeState locale when language changes or when office finishes loading
   useEffect(() => {
     if (officeReady) {
-      officeRef.current?.setLocale(locale as 'zh-TW' | 'zh' | 'en')
+      officeRef.current?.setLocale(locale as 'zh-TW' | 'zh' | 'en' | 'th')
     }
   }, [locale, officeReady])
 
@@ -400,7 +400,7 @@ export default function PixelOfficePage() {
     const loadLayout = async () => {
       if (cachedOfficeState) {
         officeRef.current = cachedOfficeState
-        officeRef.current.setLocale(locale as 'zh-TW' | 'zh' | 'en')
+        officeRef.current.setLocale(locale as 'zh-TW' | 'zh' | 'en' | 'th')
         officeRef.current.updateGatewaySreState(gatewaySreRef.current)
         savedLayoutRef.current = cachedSavedLayout
         editorRef.current = cachedEditorState ?? editorRef.current
@@ -418,13 +418,13 @@ export default function PixelOfficePage() {
         const data = await res.json()
         if (data.layout) {
           const migrated = migrateLayoutColors(data.layout)
-          officeRef.current = new OfficeState(migrated, locale as 'zh-TW' | 'zh' | 'en')
+          officeRef.current = new OfficeState(migrated, locale as 'zh-TW' | 'zh' | 'en' | 'th')
           savedLayoutRef.current = migrated
         } else {
-          officeRef.current = new OfficeState(undefined, locale as 'zh-TW' | 'zh' | 'en')
+          officeRef.current = new OfficeState(undefined, locale as 'zh-TW' | 'zh' | 'en' | 'th')
         }
       } catch {
-        officeRef.current = new OfficeState(undefined, locale as 'zh-TW' | 'zh' | 'en')
+        officeRef.current = new OfficeState(undefined, locale as 'zh-TW' | 'zh' | 'en' | 'th')
       }
       cachedOfficeState = officeRef.current
       officeRef.current?.updateGatewaySreState(gatewaySreRef.current)
@@ -1756,8 +1756,8 @@ export default function PixelOfficePage() {
       {/* Top bar: agent tags + controls */}
       <div className="flex flex-col gap-2 p-3 md:p-4 border-b border-[var(--border)]">
         <div className="flex items-center justify-between gap-2">
-          <span className="text-sm font-bold text-[var(--text)]">{t('pixelOffice.title')}</span>
-          <div className="flex gap-2">
+          <span className="text-sm font-bold text-[var(--text)] truncate max-w-[60%]">{t('pixelOffice.title')}</span>
+          <div className="flex gap-2 items-center flex-shrink-0">
             <button onClick={toggleSound}
               className={`px-3 py-1.5 text-xs rounded-lg border transition-colors ${
                 soundOn ? 'bg-[var(--accent)]/10 border-[var(--accent)]/30 text-[var(--accent)]'
